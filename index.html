@@ -1,1 +1,64 @@
-"Hello world" 
+<!DOCTYPE html>
+<html ng-app="treeChat">
+	<head>
+		
+		<title>Tree Chat</title>
+		<meta charset="utf8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css">
+		<link rel="stylesheet" href="public/css/app.css">
+	</head>
+	<body ng-controller="TreeChatCtrl">
+		<div class="container">
+			<h1>Tree Chat</h1>
+			<form class="form-inline" role="form" ng-submit="m.topics.add({text: m.newTopic, comments: []}); m.newTopic = ''">
+				<div class="row">
+					<div class="form-group col-sm-9">
+						<input type="text" id="newtopic" class="form-control" placeholder="My new topic" ng-model="m.newTopic" />
+					</div>
+					<div class="col-sm-3">
+						<button type="submit" class="btn btn-success btn-block">Save</button>
+					</div>
+				</div>
+			</form>
+			<div class="panel panel-default" ng-repeat="topic in m.topics">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{topic.text}}</h3>
+				</div>
+				<div class="panel-body">
+					<form role="form" ng-submit="addComment(topic)">
+						<div class="row">
+							<div class="form-group col-sm-9">
+								<input type="text" class="form-control" ng-model="topic.newComment" />
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" class="btn btn-success btn-block">Save</button>
+							</div>
+						</div>
+					</form>
+					<div ng-repeat="comment in topic.comments" ng-include="'render-comment.html'" />
+				</div>
+			</div>
+		</div>
+		<script type="text/ng-template" id="render-comment.html">
+			<p>{{comment.text}}</p>
+			<form role="form" ng-submit="addComment(topic, comment)">
+				<div class="row">
+					<div class="form-group col-sm-9">
+						<input type="text" class="form-control" ng-model="comment.newComment" />
+					</div>
+					<div class="col-sm-3">
+						<button type="submit" class="btn btn-success btn-block">Save</button>
+					</div>
+				</div>
+			</form>
+			<div style="margin-left: 15px;" ng-repeat="comment in comment.comments" ng-include="'render-comment.html'" />
+		</script>
+	</body>
+	<script src="public/js/lib/angular/1.2.0-rc.3/angular.min.js"></script>
+	<script src="public/js/lib/angular/1.2.0-rc.3/angular-route.min.js"></script>
+	<script src="http://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="http://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.js"></script>
+	<script src="public/js/app.js"></script>
+</html>
