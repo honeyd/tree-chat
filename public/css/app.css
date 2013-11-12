@@ -11,3 +11,19 @@ textarea {
 .panel {
 	margin-top: 15px;
 }
+
+.panel-body .comment {
+	padding:5px 0 5px 10px;
+	border-top:1px solid #ddd;
+}
+.panel-body .comment .comment {
+	border-left:1px solid #bbb;
+}
+.comment-reply-btn {
+	color:#bbb;
+	cursor:pointer;
+	margin-top:5px;
+}
+.comment-reply-btn:hover {
+	color:#000;
+}

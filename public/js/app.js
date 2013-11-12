@@ -5,36 +5,21 @@
 angular.module('treeChat', [
   'treeChat.controllers',
   'firebase'
-]).
-config(function () {
-
-});
+]);
 
 /* Controllers */
 
 angular.module('treeChat.controllers', []).
-  controller('TreeChatCtrl', function($scope, angularFire, angularFireCollection) {
+  controller('TreeChatCtrl', function($scope, angularFireCollection) {
     
     $scope.m = {
       topics: [],
       newTopic: ""
     };
 
-    var ref = new Firebase("https://examples.firebaseio.com/tree-chat/topics");
-    $scope.m.topics = angularFireCollection(ref);
-
-    $scope.saveNewTopic = function() {
-      if ($scope.m.newTopic.length > 0) {
-        $scope.m.topics.push({
-          text: $scope.m.newTopic, 
-          comments: []
-        });
-      }
-      $scope.m.newTopic = "";
-    };
+    $scope.m.topics = angularFireCollection(new Firebase("https://examples.firebaseio.com/tree-chat/topics"));
 
     $scope.addComment = function(topic, comment) {
-      console.log(comment);
       if (comment) {
         comment.comments = comment.comments || [];
         comment.comments.push({text: comment.newComment});
