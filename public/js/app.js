@@ -39,6 +39,7 @@ angular.module('treeChat.controllers', []).
         comment.comments = comment.comments || [];
         comment.comments.push({text: comment.newComment});
         delete comment['newComment'];
+        delete comment['replying'];
         topic.comments = angular.copy(topic.comments);
         comment.comments = angular.copy(comment.comments);
         $scope.m.topics.update(topic);
